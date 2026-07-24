@@ -674,8 +674,16 @@ bookData.forEach(level => {
       hash = ((hash << 5) - hash) + title.charCodeAt(i);
       hash |= 0;
     }
-    const price = 8 + (Math.abs(hash) % 38);
-    bookPrices[title] = Math.round(price * 100) / 100;
+    // Different prices for different books
+    let price;
+    if (title.includes('Workbook') || title.includes('Work book')) {
+      price = 1200 + (Math.abs(hash) % 201);  // 1200-1400 (workbooks cheaper)
+    } else if (title.includes('Dictionary') || title.includes('Atlas')) {
+      price = 1500 + (Math.abs(hash) % 201);  // 1500-1700 (reference books pricier)
+    } else {
+      price = 1300 + (Math.abs(hash) % 301);  // 1300-1600 (main books)
+    }
+    bookPrices[title] = Math.round(price );
   });
 });
 
