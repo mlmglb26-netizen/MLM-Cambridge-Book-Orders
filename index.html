@@ -450,7 +450,7 @@
       <div class="label">Books Ordered</div>
     </div>
     <div class="stat-card">
-      <div class="number" id="totalRevenue">$0</div>
+      <div class="number" id="totalRevenue">KES0</div>
       <div class="label">Total Revenue</div>
     </div>
   </div>
@@ -482,7 +482,7 @@
 
     <div class="summary-bar">
       <span>Selected: <span id="selectedCount">0</span> books</span>
-      <span class="total">Total: $<span id="orderTotal">0.00</span></span>
+      <span class="total">Total: KES<span id="orderTotal">0.00</span></span>
     </div>
 
     <button class="submit-order" onclick="submitOrder()">
@@ -720,7 +720,7 @@ function renderLevels(filter = '', priceSort = 'all') {
     let bookHtml = '';
     level.books.slice(0, 8).forEach(title => {
       const price = bookPrices[title] || 0;
-      bookHtml += `<div class="book-item"><span>${title}</span><span class="price-tag">$${price.toFixed(2)}</span></div>`;
+      bookHtml += `<div class="book-item"><span>${title}</span><span class="price-tag">KES${price.toFixed(2)}</span></div>`;
     });
     if (level.books.length > 8) {
       bookHtml += `<div class="book-item" style="color:#5a6f92;">+ ${level.books.length - 8} more...</div>`;
@@ -784,7 +784,7 @@ function openOrderForm(level) {
       <input type="checkbox" checked onchange="updateOrderSummary()">
       <span class="book-title">${title}</span>
       <input type="number" class="qty-input" value="1" min="0" max="99" onchange="updateOrderSummary()">
-      <span class="price-display">$${price.toFixed(2)}</span>
+      <span class="price-display">KES${price.toFixed(2)}</span>
     `;
     container.appendChild(row);
     orderBookStates[title] = { checked: true, quantity: 1, price: price };
@@ -867,7 +867,7 @@ function submitOrder() {
     // In production, you'd call an API endpoint here
   }
 
-  showToast(`✅ Order placed for ${name} (${items.length} books, $${total.toFixed(2)})`);
+  showToast(`✅ Order placed for ${name} (${items.length} books, KES${total.toFixed(2)})`);
   closeModal();
   renderLevels(document.getElementById('searchInput').value, document.getElementById('priceFilter').value);
 }
@@ -888,9 +888,9 @@ function showAllOrders() {
     msg += `#${i+1} ${o.customer} (${o.email || 'no email'})\n`;
     msg += `   Level: ${o.level}\n`;
     o.items.forEach(item => {
-      msg += `   • ${item.title} x${item.quantity} = $${(item.price * item.quantity).toFixed(2)}\n`;
+      msg += `   • ${item.title} x${item.quantity} = KES${(item.price * item.quantity).toFixed(2)}\n`;
     });
-    msg += `   Total: $${o.total.toFixed(2)}\n`;
+    msg += `   Total: KES${o.total.toFixed(2)}\n`;
     msg += `   ${new Date(o.timestamp).toLocaleString()}\n\n`;
   });
   alert(msg);
@@ -938,7 +938,7 @@ function exportOrders() {
     o.items.forEach(item => { totalBooks += item.quantity; totalRevenue += item.price * item.quantity; });
   });
   rows.push(['Total Books', totalBooks, '', '', '', '', '', '']);
-  rows.push(['Total Revenue', '', '', '', '', '', '$' + totalRevenue.toFixed(2), '']);
+  rows.push(['Total Revenue', '', '', '', '', '', 'KES' + totalRevenue.toFixed(2), '']);
 
   let csv = rows.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
   const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
