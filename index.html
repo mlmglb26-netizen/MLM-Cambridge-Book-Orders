@@ -835,7 +835,7 @@ function submitOrder() {
     const cb = row.querySelector('input[type="checkbox"]');
     const qty = parseInt(row.querySelector('.qty-input').value) || 0;
     const title = row.querySelector('.book-title').textContent;
-    const price = parseFloat(row.querySelector('.price-display').textContent.replace('$', ''));
+    const price = parseFloat(row.querySelector('.price-display').textContent.replace('KES', ''));
     if (cb.checked && qty > 0) {
       items.push({ title, quantity: qty, price: price });
       total += price * qty;
