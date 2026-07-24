@@ -482,7 +482,7 @@
 
     <div class="summary-bar">
       <span>Selected: <span id="selectedCount">0</span> books</span>
-      <span class="total">Total: $<span id="orderTotal">0.00</span></span>
+      <span class="total">Total: KES<span id="orderTotal">0.00</span></span>
     </div>
 
     <button class="submit-order" onclick="submitOrder()">
@@ -668,7 +668,7 @@ const bookData = [
 const bookPrices = {};
 bookData.forEach(level => {
   level.books.forEach(title => {
-    // Generate consistent pseudo-random price between $8 and $45
+    // Generate consistent pseudo-random price between KES8 and KES45
     let hash = 0;
     for (let i = 0; i < title.length; i++) {
       hash = ((hash << 5) - hash) + title.charCodeAt(i);
@@ -720,7 +720,7 @@ function renderLevels(filter = '', priceSort = 'all') {
     let bookHtml = '';
     level.books.slice(0, 8).forEach(title => {
       const price = bookPrices[title] || 0;
-      bookHtml += `<div class="book-item"><span>${title}</span><span class="price-tag">$${price.toFixed(2)}</span></div>`;
+      bookHtml += `<div class="book-item"><span>KES{title}</span><span class="price-tag">KES KES{price.toFixed(2)}</span></div>`;
     });
     if (level.books.length > 8) {
       bookHtml += `<div class="book-item" style="color:#5a6f92;">+ ${level.books.length - 8} more...</div>`;
